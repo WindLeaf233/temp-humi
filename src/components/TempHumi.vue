@@ -1,37 +1,164 @@
 <template>
-  <VeLine :data="data"></VeLine>
+  <v-chart class="chart" :option="option"></v-chart>
 </template>
 
-<script setup>
-import VeLine from 'v-charts/lib/line.common'
+<script>
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart } from 'echarts/charts'
+import {
+  TitleComponent, LegendComponent, GridComponent, TooltipComponent
+} from 'echarts/components'
+import VChart, { THEME_KEY } from 'vue-echarts'
+import { ref, defineComponent } from 'vue'
 
-const originalData = [
-  { addtime: '08/21 05:23', temp: 40, humi: 50 },
-  { addtime: '08/21 05:24', temp: 30, humi: 60 },
-  { addtime: '08/21 05:25', temp: 20, humi: 30 }
-]
+use([
+    CanvasRenderer,
+    LineChart,
+    TitleComponent,
+    LegendComponent,
+    GridComponent,
+    TooltipComponent
+])
 
-function parseData() {
-  let mapping = {
-    addtime: '日期', temp: '温度', humi: '湿度'
-  }
+export default defineComponent({
+  name: 'TempHumi',
+  components: {
+    VChart
+  },
+  provide: {
+    [THEME_KEY]: 'light'
+  },
+  setup: () => {
+    const originalData = [
+      { addtime: '08/21 05:23', temp: 40, humi: 50 },
+      { addtime: '08/21 05:24', temp: 30, humi: 60 },
+      { addtime: '08/21 05:25', temp: 20, humi: 30 }
+    ]
 
-  let columns = []
-  for (let key in mapping) {
-    columns.push(mapping[key])
-  }
-
-  let rows = []
-  for (let dataRow of originalData) {
-    let row = {}
-    for (let rowKey in dataRow) {
-      row[mapping[rowKey]] = dataRow[rowKey]
+    function getTimeList() {
+      let temp = []
+      for (let column of originalData) {
+        temp.push(column.addtime)
+      }
+      return temp
     }
-    rows.push(row)
+
+    function getDataList(type) {
+      let temp = []
+      for (let column of originalData) {
+        temp.push(column[type])
+      }
+      return temp
+    }
+
+    const option = ref({
+      title: {
+        text: '温湿度变化',
+        left: 'center'
+      },
+      legend: {
+        data: ['温度', '湿度'],
+        right: 5
+      },
+      grid: { left: '3%', right: '3%' },
+      tooltip: { trigger: 'axis' },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: getTimeList()
+      },
+      yAxis: [
+        {
+          name: '温度',
+          type: 'value',
+          axisLabel: {
+            formatter: '{value}℃'
+          }
+        },
+        {
+          name: '湿度',
+          type: 'value',
+          axisLabel: {
+            formatter: '{value}%'
+          },
+          inverse: true
+        }
+      ],
+      series: [
+        {
+          name: '温度',
+          type: 'line',
+          smooth: true,
+          data: getDataList('temp'),
+          markPoint: {
+            data: [
+              { type: 'max', name: '最高温度' },
+              { type: 'min', name: '最低温度' }
+            ]
+          },
+          markLine: {
+            data: [{ type: 'average', name: '平均温度' }]
+          }
+        },
+        {
+          name: '湿度',
+          type: 'line',
+          smooth: true,
+          yAxisIndex: 1,
+          data: getDataList('humi'),
+          markPoint: {
+            data: [
+              { type: 'max', name: '最高湿度' },
+              { type: 'min', name: '最低湿度' }
+            ]
+          },
+          markLine: {
+            data: [{ type: 'average', name: '平均湿度' }]
+          }
+        }
+      ]
+    })
+
+    return { option }
   }
+})
 
-  return { columns, rows }
-}
-
-const data = parseData()
+// import { LinesChart } from 'echarts/charts'
+//
+// const originalData = [
+//   { addtime: '08/21 05:23', temp: 40, humi: 50 },
+//   { addtime: '08/21 05:24', temp: 30, humi: 60 },
+//   { addtime: '08/21 05:25', temp: 20, humi: 30 }
+// ]
+//
+// function parseData() {
+//   let mapping = {
+//     addtime: '日期', temp: '温度', humi: '湿度'
+//   }
+//
+//   let columns = []
+//   for (let key in mapping) {
+//     columns.push(mapping[key])
+//   }
+//
+//   let rows = []
+//   for (let dataRow of originalData) {
+//     let row = {}
+//     for (let rowKey in dataRow) {
+//       row[mapping[rowKey]] = dataRow[rowKey]
+//     }
+//     rows.push(row)
+//   }
+//
+//   return { columns, rows }
+// }
+//
+// const data = parseData()
 </script>
+
+<style scoped>
+.chart {
+  height: 500px;
+}
+</style>

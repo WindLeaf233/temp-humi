@@ -10,8 +10,8 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "echarts": "^5.3.3",
-    "v-charts": "^1.19.0",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue-echarts": "^6.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
