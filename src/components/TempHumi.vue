@@ -11,8 +11,10 @@ import {
   DataZoomComponent, ToolboxComponent, VisualMapComponent
 } from 'echarts/components'
 import VChart, { THEME_KEY } from 'vue-echarts'
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent, defineProps } from 'vue'
 import { createDeviceDetector } from 'next-vue-device-detector'
+
+const props = defineProps(['loadingInstance'])
 
 use([
     CanvasRenderer,
@@ -178,6 +180,8 @@ export default defineComponent({
         }
       ]
     })
+
+    props.loadingInstance.close()
 
     return { option }
   }
