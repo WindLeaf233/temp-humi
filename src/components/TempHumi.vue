@@ -65,7 +65,16 @@ export default defineComponent({
         left: 5
       },
       grid: { left: '3%', right: '3%' },
-      tooltip: { trigger: 'axis' },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          animation: true,
+          label: {
+            backgroundColor: '#505765'
+          }
+        }
+      },
       toolbox: {
         feature: {
           dataZoom: {
