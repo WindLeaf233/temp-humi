@@ -12,6 +12,7 @@ import {
 } from 'echarts/components'
 import VChart, { THEME_KEY } from 'vue-echarts'
 import { ref, defineComponent } from 'vue'
+import { createDeviceDetector } from 'next-vue-device-detector'
 
 use([
     CanvasRenderer,
@@ -24,6 +25,8 @@ use([
     ToolboxComponent,
     VisualMapComponent
 ])
+
+const device = createDeviceDetector()
 
 export default defineComponent({
   name: 'TempHumi',
@@ -76,7 +79,10 @@ export default defineComponent({
           color: ['#e64343', '#ffaa6d', '#32c6ce']
         }
       ],
-      grid: { left: '3%', right: '3%' },
+      grid: {
+        left: device.mobile ? '10%' : '3%',
+        right: device.mobile ? '10%' : '3%'
+      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -145,7 +151,10 @@ export default defineComponent({
           markLine: {
             data: [{ type: 'average', name: '平均温度' }]
           },
-          showSymbol: false
+          showSymbol: false,
+          lineStyle: {
+            width: 2
+          }
         },
         {
           name: '湿度',
@@ -162,7 +171,10 @@ export default defineComponent({
           markLine: {
             data: [{ type: 'average', name: '平均湿度' }]
           },
-          showSymbol: false
+          showSymbol: false,
+          lineStyle: {
+            width: 2
+          }
         }
       ]
     })
