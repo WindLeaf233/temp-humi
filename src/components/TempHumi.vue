@@ -10,7 +10,6 @@ import {
   TitleComponent, LegendComponent, GridComponent, TooltipComponent,
   DataZoomComponent, ToolboxComponent, VisualMapComponent
 } from 'echarts/components'
-import VChart from 'vue-echarts'
 import { ref, defineProps } from 'vue'
 import { createDeviceDetector } from 'next-vue-device-detector'
 
