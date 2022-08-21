@@ -7,7 +7,8 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import {
-  TitleComponent, LegendComponent, GridComponent, TooltipComponent
+  TitleComponent, LegendComponent, GridComponent, TooltipComponent,
+  DataZoomComponent
 } from 'echarts/components'
 import VChart, { THEME_KEY } from 'vue-echarts'
 import { ref, defineComponent } from 'vue'
@@ -18,7 +19,8 @@ use([
     TitleComponent,
     LegendComponent,
     GridComponent,
-    TooltipComponent
+    TooltipComponent,
+    DataZoomComponent
 ])
 
 export default defineComponent({
@@ -63,6 +65,20 @@ export default defineComponent({
       },
       grid: { left: '3%', right: '3%' },
       tooltip: { trigger: 'axis' },
+      dataZoom: [
+        {
+          show: true,
+          realtime: true,
+          start: 0,
+          end: 100
+        },
+        {
+          type: 'inside',
+          realtime: true,
+          start: 0,
+          end: 100
+        }
+      ],
       xAxis: {
         type: 'category',
         boundaryGap: false,
@@ -81,8 +97,7 @@ export default defineComponent({
           type: 'value',
           axisLabel: {
             formatter: '{value}%'
-          },
-          inverse: true
+          }
         }
       ],
       series: [
