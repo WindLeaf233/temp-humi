@@ -8,7 +8,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import {
   TitleComponent, LegendComponent, GridComponent, TooltipComponent,
-  DataZoomComponent, ToolboxComponent
+  DataZoomComponent, ToolboxComponent, VisualMapComponent
 } from 'echarts/components'
 import VChart, { THEME_KEY } from 'vue-echarts'
 import { ref, defineComponent } from 'vue'
@@ -21,7 +21,8 @@ use([
     GridComponent,
     TooltipComponent,
     DataZoomComponent,
-    ToolboxComponent
+    ToolboxComponent,
+    VisualMapComponent
 ])
 
 export default defineComponent({
@@ -36,7 +37,8 @@ export default defineComponent({
     const originalData = [
       { addtime: '08/21 05:23', temp: 40, humi: 50 },
       { addtime: '08/21 05:24', temp: 30, humi: 60 },
-      { addtime: '08/21 05:25', temp: 20, humi: 30 }
+      { addtime: '08/21 05:25', temp: 20, humi: 30 },
+      { addtime: '08/21 05:26', temp: -25, humi: 10 }
     ]
 
     function getTimeList() {
@@ -64,6 +66,16 @@ export default defineComponent({
         data: ['温度', '湿度'],
         left: 5
       },
+      visualMap: [
+        {
+          show: false,
+          type: 'continuous',
+          seriesIndex: 0,
+          min: -30,
+          max: 50,
+          color: ['#e64343', '#ffaa6d', '#32c6ce']
+        }
+      ],
       grid: { left: '3%', right: '3%' },
       tooltip: {
         trigger: 'axis',
@@ -132,7 +144,8 @@ export default defineComponent({
           },
           markLine: {
             data: [{ type: 'average', name: '平均温度' }]
-          }
+          },
+          showSymbol: false
         },
         {
           name: '湿度',
@@ -148,7 +161,8 @@ export default defineComponent({
           },
           markLine: {
             data: [{ type: 'average', name: '平均湿度' }]
-          }
+          },
+          showSymbol: false
         }
       ]
     })
