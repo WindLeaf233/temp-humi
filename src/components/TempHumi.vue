@@ -12,6 +12,7 @@ import {
 } from 'echarts/components'
 import { ref, defineProps } from 'vue'
 import { createDeviceDetector } from 'next-vue-device-detector'
+import * as loopUpdate from '@/requests/loopUpdate'
 
 const props = defineProps(['loadingInstance'])
 
@@ -29,12 +30,14 @@ use([
 
 const device = createDeviceDetector()
 
-const originalData = [
-  { addtime: '08/21 05:23', temp: 40, humi: 50 },
-  { addtime: '08/21 05:24', temp: 30, humi: 60 },
-  { addtime: '08/21 05:25', temp: 20, humi: 30 },
-  { addtime: '08/21 05:26', temp: -25, humi: 10 }
-]
+const originalData = await loopUpdate.getData()
+
+// const originalData = [
+//   { addtime: '08/21 05:23', temp: 40, humi: 50 },
+//   { addtime: '08/21 05:24', temp: 30, humi: 60 },
+//   { addtime: '08/21 05:25', temp: 20, humi: 30 },
+//   { addtime: '08/21 05:26', temp: -25, humi: 10 }
+// ]
 
 function getTimeList() {
   let temp = []
