@@ -10,11 +10,9 @@ import {
   TitleComponent, LegendComponent, GridComponent, TooltipComponent,
   DataZoomComponent, ToolboxComponent, VisualMapComponent
 } from 'echarts/components'
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import { createDeviceDetector } from 'next-vue-device-detector'
 import * as loopUpdate from '@/requests/loopUpdate'
-
-const props = defineProps(['loadingInstance'])
 
 use([
     CanvasRenderer,
@@ -32,7 +30,8 @@ let timer
 
 export default {
   name: 'TempHumi',
-  setup() {
+  props: ['loadingInstance'],
+  setup(props) {
     const device = createDeviceDetector()
 
     const originalDataList = []
@@ -47,7 +46,7 @@ export default {
     function getTimeList() {
       let temp = []
       for (let column of originalDataList) {
-        temp.push(column.time)
+        temp.push(column.date)
       }
       return temp
     }
@@ -184,15 +183,17 @@ export default {
       let data = await loopUpdate.getData()
       console.log('get data', data)
       originalDataList.push(data)
-      option.value.xAxis.value.data = getTimeList()
-      option.value.series.value[0].data = getDataList('temp')
-      option.value.series.value[1].data = getDataList('humi')
+      console.log(option.value.series)
+      option.value.xAxis.data = getTimeList()
+      option.value.series[0].data = getDataList('temp')
+      option.value.series[1].data = getDataList('humi')
     }
 
     updateData()
 
     timer = setInterval(updateData, 1000 * 60)
 
+    console.log(props)
     props.loadingInstance.close()
 
     return { option }
