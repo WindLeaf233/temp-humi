@@ -8,7 +8,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import {
   TitleComponent, LegendComponent, GridComponent, TooltipComponent,
-  DataZoomComponent
+  DataZoomComponent, ToolboxComponent
 } from 'echarts/components'
 import VChart, { THEME_KEY } from 'vue-echarts'
 import { ref, defineComponent } from 'vue'
@@ -20,7 +20,8 @@ use([
     LegendComponent,
     GridComponent,
     TooltipComponent,
-    DataZoomComponent
+    DataZoomComponent,
+    ToolboxComponent
 ])
 
 export default defineComponent({
@@ -61,10 +62,18 @@ export default defineComponent({
       },
       legend: {
         data: ['温度', '湿度'],
-        right: 5
+        left: 5
       },
       grid: { left: '3%', right: '3%' },
       tooltip: { trigger: 'axis' },
+      toolbox: {
+        feature: {
+          dataZoom: {
+            yAxisIndex: 'none'
+          },
+          restore: {}
+        }
+      },
       dataZoom: [
         {
           show: true,
