@@ -13,6 +13,7 @@ import {
 import { ref } from 'vue'
 import { createDeviceDetector } from 'next-vue-device-detector'
 import * as loopUpdate from '@/requests/loopUpdate'
+import * as getList from '@/requests/getList'
 
 use([
     CanvasRenderer,
@@ -178,17 +179,34 @@ export default {
       ]
     }, { deep: true })
 
-    async function updateData() {
-      console.log('updating data')
-      let data = await loopUpdate.getData()
-      console.log('get data', data)
-      originalDataList.push(data)
-      console.log(option.value.series)
+
+    function updateList() {
       option.value.xAxis.data = getTimeList()
       option.value.series[0].data = getDataList('temp')
       option.value.series[1].data = getDataList('humi')
     }
 
+    async function getExistData() {
+      let data = await getList.getList()
+      for (let item of data) {
+        originalDataList.push({
+          date: item.date,
+          temp: item.temp,
+          humi: item.humi
+        })
+      }
+      updateList()
+    }
+
+    async function updateData() {
+      console.log('updating data')
+      let data = await loopUpdate.getData()
+      console.log('get data', data)
+      originalDataList.push(data)
+      updateList()
+    }
+
+    getExistData()
     updateData()
 
     timer = setInterval(updateData, 1000 * 60)
