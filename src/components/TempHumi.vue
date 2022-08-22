@@ -1,5 +1,10 @@
 <template>
-  <v-chart class="chart" :option="option"></v-chart>
+  <v-chart
+    class="chart"
+    :option="option"
+    :autoresize="true"
+    @datazoom="datazoom($event)"
+  ></v-chart>
 </template>
 
 <script>
@@ -179,11 +184,24 @@ export default {
       ]
     }, { deep: true })
 
+    let zoomStart = 0
+    let zoomEnd = 100
+
+    function datazoom(e) {
+      console.log(e)
+      let data = 'batch' in e ? e.batch[0] : e
+      zoomStart = data.start
+      zoomEnd = data.end
+    }
 
     function updateList() {
       option.value.xAxis.data = getTimeList()
       option.value.series[0].data = getDataList('temp')
       option.value.series[1].data = getDataList('humi')
+      for (let zoom of option.value.dataZoom) {
+        zoom.start = zoomStart
+        zoom.end = zoomEnd
+      }
     }
 
     async function getExistData() {
@@ -211,10 +229,9 @@ export default {
 
     timer = setInterval(updateData, 1000 * 60)
 
-    console.log(props)
     props.loadingInstance.close()
 
-    return { option }
+    return { option, datazoom }
   },
   unmounted() {
     clearInterval(timer)
