@@ -3,12 +3,12 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <span class="iconfont icon-wenshidujiancejilu" style="font-size:50px;margin-top: -20px;margin-bottom: -20px;color: aliceblue;margin-right: 10px;"></span>
-        <a class="navbar-brand yc-ys" href="/">
+        <router-link class="navbar-brand yc-ys" to="/">
           温湿度计
-        </a>
+        </router-link>
         <div class="collapse navbar-collapse" id="navbar-primary">
         </div>
-        <a class="navbar-brand"  href="#">温湿度历史数据</a>
+        <router-link class="navbar-brand" to="/history">温湿度历史数据</router-link>
       </div>
     </nav>
   </div>

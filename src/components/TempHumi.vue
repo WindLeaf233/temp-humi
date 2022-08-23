@@ -1,13 +1,4 @@
 <template>
-  <el-date-picker
-    v-model="datetimeFilter"
-    type="datetimerange"
-    range-separator="到"
-    start-placeholder="开始时间"
-    end-placeholder="截止时间"
-    value-format="YYYY-MM-DD HH:mm:ss"
-    @change="onDatetimeFilterUpdate"
-  ></el-date-picker>
   <v-chart
     class="chart"
     :option="option"
@@ -175,14 +166,6 @@ const option = ref({
     }
   ]
 }, { deep: true })
-
-// 日期时间范围选择
-let datetimeFilter = ref('')
-// eslint-disable-next-line
-function onDatetimeFilterUpdate() {
-  let f = datetimeFilter
-  getExistData(f[0], f[1])
-}
 
 let zoomStart = 0
 let zoomEnd = 100
