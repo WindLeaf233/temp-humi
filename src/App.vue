@@ -1,6 +1,9 @@
 <template>
   <Suspense>
-    <NowTemp ref="nowtemp"></NowTemp>
+    <div>
+      <NowTemp ref="nowtemp"></NowTemp>
+      <NowHumi ref="nowhumi"></NowHumi>
+    </div>
   </Suspense>
   <TempHumi ref="temphumi" :loadingInstance="loadingInstance"></TempHumi>
 </template>
@@ -12,15 +15,17 @@ import * as current from '@/requests/current'
 
 let timer
 const NowTemp = defineAsyncComponent(() => import('@/components/NowTemp'))
+const NowHumi = defineAsyncComponent(() => import('@/components/NowHumi'))
 const TempHumi = defineAsyncComponent(() => import('@/components/TempHumi'))
 
 export default {
   name: 'App',
   components: {
-    NowTemp, TempHumi
+    NowTemp, NowHumi, TempHumi
   },
   setup() {
     const nowtemp = ref(null)
+    const nowhumi = ref(null)
     const temphumi = ref(null)
 
     const loadingInstance = ElLoading.service({ fullscreen: true, lock: true })
@@ -30,12 +35,13 @@ export default {
       console.log('updating data', data)
 
       nowtemp.value.updateData(data)
+      nowhumi.value.updateData(data)
       temphumi.value.updateData(data)
     }
 
     timer = setInterval(updateData, 1000 * 60)
 
-    return { loadingInstance, nowtemp, temphumi }
+    return { loadingInstance, nowtemp, nowhumi, temphumi }
   },
   unmounted() {
     clearInterval(timer)
