@@ -22,7 +22,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import {
   TitleComponent, LegendComponent, GridComponent, TooltipComponent,
-  DataZoomComponent, ToolboxComponent, VisualMapComponent
+  DataZoomComponent, VisualMapComponent
 } from 'echarts/components'
 import { ref, defineProps, defineExpose } from 'vue'
 import { createDeviceDetector } from 'next-vue-device-detector'
@@ -37,7 +37,6 @@ use([
     GridComponent,
     TooltipComponent,
     DataZoomComponent,
-    ToolboxComponent,
     VisualMapComponent
 ])
 
@@ -97,14 +96,6 @@ const option = ref({
       label: {
         backgroundColor: '#505765'
       }
-    }
-  },
-  toolbox: {
-    feature: {
-      dataZoom: {
-        yAxisIndex: 'none'
-      },
-      restore: {}
     }
   },
   dataZoom: [
