@@ -15,42 +15,9 @@
 </template>
 
 <style scoped>
-@media only screen and (min-width: 1024px) {
-  .wh-test{
-  display: none;
-  }
-  .card-th{
-  border-radius:20px;
-  margin: 10px;
-}
-
-
-.card-bg{
-  margin: 20px;
-}
-.air-px{
-  height: 20px;
-}
-.guindex{
-  margin: 30px;
-}
-
-}
-@media only screen and (max-width: 1023px) {
-  .card-th{
-  border-radius:20px;
-  margin: 5px;
-}
-.now .now-element {
-  height: 300px;
-}
-.guindex{
-  margin: 0px;
-}
-}
 @media only screen and (max-width: 992px) {
-.yc-ys{
-  display: none;
-}
+  .yc-ys {
+    display: none;
+  }
 }
 </style>
