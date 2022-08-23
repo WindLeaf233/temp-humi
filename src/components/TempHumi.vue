@@ -1,4 +1,13 @@
 <template>
+  <el-date-picker
+    v-model="datetimeFilter"
+    type="datetimerange"
+    range-separator="到"
+    start-placeholder="开始时间"
+    end-placeholder="截止时间"
+    value-format="YYYY-MM-DD HH:mm:ss"
+    @change="onDatetimeFilterUpdate"
+  ></el-date-picker>
   <v-chart
     class="chart"
     :option="option"
@@ -184,11 +193,17 @@ export default {
       ]
     }, { deep: true })
 
+    // 日期时间范围选择
+    let datetimeFilter = ref('')
+    function onDatetimeFilterUpdate() {
+      let f = datetimeFilter
+      getExistData(f[0], f[1])
+    }
+
     let zoomStart = 0
     let zoomEnd = 100
 
     function datazoom(e) {
-      console.log(e)
       let data = 'batch' in e ? e.batch[0] : e
       zoomStart = data.start
       zoomEnd = data.end
@@ -204,9 +219,9 @@ export default {
       }
     }
 
-    async function getExistData() {
-      let data = await getList.getList()
-      for (let item of data) {
+    async function getExistData(data) {
+      let _data = await getList.getList(data)
+      for (let item of _data) {
         originalDataList.push({
           date: item.date,
           temp: item.temp,
@@ -224,14 +239,15 @@ export default {
       updateList()
     }
 
-    getExistData()
+    let today = (new Date()).toISOString().split('T')[0].split('-').join('')
+    getExistData({ date: today })
     updateData()
 
     timer = setInterval(updateData, 1000 * 60)
 
     props.loadingInstance.close()
 
-    return { option, datazoom }
+    return { option, datazoom, datetimeFilter, onDatetimeFilterUpdate }
   },
   unmounted() {
     clearInterval(timer)

@@ -3,7 +3,7 @@ import * as notice from '@/utils/notice'
 
 export const request = async function(type, api, data) {
   return new Promise((resolve) => {
-    axios.request({ url: api, method: type, data }).then((res) => {
+    axios.request({ url: process.env.VUE_APP_API_BASE + api, method: type, data }).then((res) => {
       let resData = res.data
       console.log(`${type} (${api}) [${data}] =>`, resData)
       if (resData.code !== 200) {
