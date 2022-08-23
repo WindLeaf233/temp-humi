@@ -6,11 +6,14 @@
 import { use } from 'echarts/core'
 import { GaugeChart } from 'echarts/charts'
 import { ref, defineExpose } from 'vue'
+import { createDeviceDetector } from 'next-vue-device-detector'
 import * as current from '@/requests/current'
 
 use([
   GaugeChart
 ])
+
+const device = createDeviceDetector()
 
 const option = ref({
   series: [
@@ -19,9 +22,9 @@ const option = ref({
       center: ['50%', '60%'],
       startAngle: 200,
       endAngle: -20,
-      min: 0,
-      max: 60,
-      splitNumber: 12,
+      min: -30,
+      max: 50,
+      splitNumber: 10,
       itemStyle: {
         color: '#FFAB91'
       },
@@ -39,7 +42,7 @@ const option = ref({
       },
       axisTick: {
         distance: -45,
-        splitNumber: 5,
+        splitNumber: 10,
         lineStyle: {
           width: 2,
           color: '#999'
@@ -54,7 +57,7 @@ const option = ref({
         }
       },
       axisLabel: {
-        distance: -20,
+        distance: device.mobile ? -10 : -15,
         color: '#999',
         fontSize: 18
       },
@@ -70,7 +73,7 @@ const option = ref({
         lineHeight: 40,
         borderRadius: 8,
         offsetCenter: [0, '-15%'],
-        fontSize: 40,
+        fontSize: device.mobile ? 30 : 35,
         fontWeight: 'bolder',
         formatter: '{value}°C',
         color: 'inherit'
@@ -86,8 +89,8 @@ const option = ref({
       center: ['50%', '60%'],
       startAngle: 200,
       endAngle: -20,
-      min: 0,
-      max: 60,
+      min: -30,
+      max: 50,
       itemStyle: {
         color: '#FD7347'
       },
