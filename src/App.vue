@@ -7,34 +7,6 @@
 			温湿度计
 		</a>
 		<div class="collapse navbar-collapse" id="navbar-primary">
-			<div class="navbar-collapse-header" _msthidden="1">
-				<div class="row" _msthidden="1">
-					<div class="col-6 collapse-brand">
-						<a href="javascript:void(0)">
-						</a>
-					</div>
-					<div class="col-6 collapse-close" _msthidden="1">
-						<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-primary"
-						aria-controls="navbar-primary" aria-expanded="false" aria-label="Toggle navigation"
-						_mstaria-label="320099" _msthidden="A" _msthiddenattr="426439">
-							<span>
-							</span>
-							<span>
-							</span>
-						</button>
-					</div>
-				</div>
-			</div>
-			<ul class="navbar-nav ml-lg-auto" _msthidden="6">
-        <li class="nav-item" _msthidden="1">
-          <a class="nav-link nav-link-icon" href="#" _msthidden="1">
-            <span class="nav-link-inner--text d-lg-none" _msthash="1010997" _msttexthash="115531"
-            _msthidden="1">
-              Discover
-            </span>
-          </a>
-        </li>
-      </ul>
 		</div>
     <a class="navbar-brand"  href="#">温湿度历史数据</a>
 	</div>
