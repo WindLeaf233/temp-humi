@@ -1,45 +1,33 @@
 <template>
-<div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-	<div class="container">
-    <span class="iconfont icon-wenshidujiancejilu" style="font-size:50px;margin-top: -20px;margin-bottom: -20px;color: aliceblue;margin-right: 10px;"></span>
-    <a class="navbar-brand yc-ys" href="/">
-			温湿度计
-		</a>
-		<div class="collapse navbar-collapse" id="navbar-primary">
-		</div>
-    <a class="navbar-brand"  href="#">温湿度历史数据</a>
-	</div>
-</nav>
-</div>
-
-<div class="guindex">
-  <Suspense>
-    <div class="now">
-      <div class="container">
-        <div class="row">
-          <div class="col card card-th">
-            <div class="air-px"></div>
-            <NowTemp class="now-element" ref="nowtemp"></NowTemp>
-          </div>
-          <div class="w-100 wh-test"></div>
-          <div class="col card card-th">
-            <div class="air-px"></div>
-            <NowHumi class="now-element" ref="nowhumi"></NowHumi>
-          </div>
+  <NavBar></NavBar>
+  <div class="guindex">
+    <Suspense>
+      <div class="now">
+        <div class="container">
+          <div class="row">
+            <div class="col card card-th">
+              <div class="air-px"></div>
+              <NowTemp class="now-element" ref="nowtemp"></NowTemp>
+            </div>
+            <div class="w-100 wh-test"></div>
+            <div class="col card card-th">
+              <div class="air-px"></div>
+              <NowHumi class="now-element" ref="nowhumi"></NowHumi>
+            </div>
+        </div>
+        </div>
       </div>
-      </div>
+    </Suspense>
+    <div>
+    <TempHumi ref="temphumi" :loadingInstance="loadingInstance"></TempHumi>
     </div>
-  </Suspense>
-  <div>
-  <TempHumi ref="temphumi" :loadingInstance="loadingInstance"></TempHumi>
   </div>
-</div>
 </template>
 
 <script>
 import { defineAsyncComponent, ref } from 'vue'
 import { ElLoading } from 'element-plus'
+import NavBar from '@/components/NavBar'
 import * as current from '@/requests/current'
 import '@/styles/argon-design-system.min.css'
 import '@/styles/iconfont.css'
@@ -52,6 +40,7 @@ const TempHumi = defineAsyncComponent(() => import('@/components/TempHumi'))
 export default {
   name: 'App',
   components: {
+    NavBar,
     NowTemp, NowHumi, TempHumi
   },
   setup() {
@@ -82,45 +71,10 @@ export default {
 
 <style scoped>
 
-@media only screen and (min-width: 1024px) {
-  .wh-test{
-  display: none;
-  }
-  .card-th{
-  border-radius:20px;
-  margin: 10px;
-}
-
 .now .now-element {
   height: 300px;
 }
-.card-bg{
-  margin: 20px;
-}
-.air-px{
-  height: 20px;
-}
-.guindex{
-  margin: 30px;
-}
 
-}
-@media only screen and (max-width: 1023px) {
-  .card-th{
-  border-radius:20px;
-  margin: 5px;
-}
-.now .now-element {
-  height: 300px;
-}
-.guindex{
-  margin: 0px;
-}
-}
-@media only screen and (max-width: 992px) {
-.yc-ys{
-  display: none;
-}
-}
+
 
 </style>
