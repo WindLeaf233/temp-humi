@@ -12,6 +12,7 @@
 import { defineAsyncComponent, ref } from 'vue'
 import { ElLoading } from 'element-plus'
 import * as current from '@/requests/current'
+import '@/styles/argon-design-system.min.css'
 
 let timer
 const NowTemp = defineAsyncComponent(() => import('@/components/NowTemp'))
@@ -50,19 +51,7 @@ export default {
 </script>
 
 <style scoped>
-.now {
+.now .now-element {
   height: 300px;
-  width: 80%;
-  display: block;
-  background-color: red;
-  margin: 0 auto;
-  position: static;
-  white-space: nowrap;
-}
-
-.now-element {
-  height: 100%;
-  width: 40%;
-  
 }
 </style>

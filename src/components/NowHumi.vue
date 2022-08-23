@@ -23,7 +23,7 @@ const option = ref({
       max: 60,
       splitNumber: 12,
       itemStyle: {
-        color: '#FFAB91'
+        color: '#11B9C2'
       },
       progress: {
         show: true,
@@ -42,7 +42,7 @@ const option = ref({
         splitNumber: 5,
         lineStyle: {
           width: 2,
-          color: '#999'
+          color: '#0e99a1'
         }
       },
       splitLine: {
@@ -50,12 +50,12 @@ const option = ref({
         length: 14,
         lineStyle: {
           width: 3,
-          color: '#999'
+          color: '#0e99a1'
         }
       },
       axisLabel: {
         distance: -20,
-        color: '#999',
+        color: '#0e99a1',
         fontSize: 18
       },
       anchor: {
@@ -89,7 +89,7 @@ const option = ref({
       min: 0,
       max: 60,
       itemStyle: {
-        color: '#FD7347'
+        color: '#0e99a1'
       },
       progress: {
         show: true,
