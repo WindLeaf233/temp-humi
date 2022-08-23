@@ -1,5 +1,5 @@
 <template>
-  <v-chart class="chart" :option="option"></v-chart>
+  <v-chart :option="option"></v-chart>
 </template>
 
 <script setup>
@@ -136,9 +136,3 @@ defineExpose({
 let data = await current.getData()
 updateData(data)
 </script>
-
-<style scoped>
-.chart {
-  height: 300px;
-}
-</style>

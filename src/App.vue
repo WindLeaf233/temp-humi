@@ -1,8 +1,8 @@
 <template>
   <Suspense>
-    <div>
-      <NowTemp ref="nowtemp"></NowTemp>
-      <NowHumi ref="nowhumi"></NowHumi>
+    <div class="now">
+      <NowTemp class="now-element" ref="nowtemp"></NowTemp>
+      <NowHumi class="now-element" ref="nowhumi"></NowHumi>
     </div>
   </Suspense>
   <TempHumi ref="temphumi" :loadingInstance="loadingInstance"></TempHumi>
@@ -48,3 +48,21 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.now {
+  height: 300px;
+  width: 80%;
+  display: block;
+  background-color: red;
+  margin: 0 auto;
+  position: static;
+  white-space: nowrap;
+}
+
+.now-element {
+  height: 100%;
+  width: 40%;
+  
+}
+</style>
